@@ -1,0 +1,31 @@
+nav#mainNav.navbar.navbar-custom.navbar-fixed-top
+    // Brand and toggle get grouped for better mobile display
+    .navbar-header.page-scroll
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+        span.sr-only Toggle navigation
+        |  Menu 
+        i.fa.fa-bars
+      a.navbar-brand.page-scroll(href='/') airNYH
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse    
+      ul.nav.navbar-nav.navbar-right
+        li.hidden
+          a(href='#page-top')
+        li
+          a.page-scroll(href='#services') Services        
+        li
+          a.page-scroll(href='#about') 호스트
+        li
+          a.page-scroll(href='#team') 메시지
+        li
+          a.page-scroll(href='/users/userlist') 유저리스트
+      ul.nav.navbar-nav.navbar-right
+        li
+          a.page-scroll(href='#', data-toggle='modal', data-target='#myLoginModal') 로그인
+        li
+          a.page-scroll(href='#', data-toggle='modal', data-target='#mySignUpModal') 회원가이이입
+        li
+          a.page-scroll(href='/users/signup') 회원가입
+
+
+    script(src='/bower_components/agency/js/agency.js')
+    link(href='/bower_components/agency/css/agency.min.css', rel='stylesheet')

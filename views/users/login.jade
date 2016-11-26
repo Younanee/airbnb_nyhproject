@@ -1,0 +1,24 @@
+// Modal
+#myLoginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') ×
+        h4#myModalLabel.modal-title 로그인
+      .modal-body
+        form.form-horizontal(action='/login', method='POST')
+        .form-group
+            label.col-sm-2.control-label(for='inputEmail') 이메일
+            .col-sm-10
+            input#inputEmail.form-control(type='email', placeholder='Email')
+        .form-group
+            label.col-sm-2.control-label(for='inputPassword') 비밀번호
+            .col-sm-10
+            input#inputPassword.form-control(type='password', placeholder='Password')
+        div.form-actions
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') 닫기
+        button.btn.btn-primary(type='submit') 로그인
+        button.btn.btn-primary.pull-left(type='button' href='#') 비밀번호 찾기
+        button.btn.btn-primary.pull-left(href='#', data-toggle='modal', data-target='#mySignInModal') 회원가입
