@@ -39,16 +39,23 @@ function validateForm(form, options) {
 
   return null;
 }
+// router.get('/:id', function(req, res, next){
+//   User.findById(req.params.id, function(err, user){
+//     if(err){
+//       return next(err);
+//     }
+//     res.render('users/userinfo',{user: user});
+//   });
+// });
+
+
 
 router.get('/userlist', function(req, res, next) {
   User.find({},function(err, users){
     if(err){
-      return next();
+      return next(err);
     }
-    res.render('users/userlist',{
-      users: users
-    });
-
+    res.render('users/userlist',{ users: users });
   });
 });
 
@@ -56,13 +63,25 @@ router.get('/userlist', function(req, res, next) {
 
 /* GET users listing. */
 
+router.get('/signup',function(req, res, next){
+  res.render('users/signup');
+});
+
+router.get('/:id', function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    res.render('users/userinfo', {user: user});
+  });
+});
 
 
 router.post('/', function(req, res, next) {
   var err = validateForm(req.body, {needPassword: true});
   if (err) {
     req.flash('danger', err);
-    return res.redirect('back');
+    return res.redirect('/');
   }
   User.findOne({email: req.body.email}, function(err, user) {
     if (err) {
@@ -87,5 +106,15 @@ router.post('/', function(req, res, next) {
     });
   });
 });
+router.delete('/:id', function(req, res, next){
+  User.findOneAndRemove({_id: req.params.id}, function(err){
+    if(err){
+      return next(err);
+    }
+    req.flash('success', '사용자 계정이 삭제되었습니다.');
+    res.redirect('/signout');
+  });
+});
+
 
 module.exports = router;

@@ -11,21 +11,26 @@ nav#mainNav.navbar.navbar-custom.navbar-fixed-top
         li.hidden
           a(href='#page-top')
         li
-          a.page-scroll(href='#services') Services        
+          a.page-scroll(href='#serch') 숙소 검색
         li
-          a.page-scroll(href='#about') 호스트
+          a.page-scroll(href='/hosting/hosting') 호스트
         li
           a.page-scroll(href='#team') 메시지
         li
           a.page-scroll(href='/users/userlist') 유저리스트
       ul.nav.navbar-nav.navbar-right
-        li
-          a.page-scroll(href='#', data-toggle='modal', data-target='#myLoginModal') 로그인
-        li
-          a.page-scroll(href='#', data-toggle='modal', data-target='#mySignUpModal') 회원가이이입
-        li
-          a.page-scroll(href='/users/signup') 회원가입
-
+        if(!currentUser)
+          li
+            a.page-scroll(href='#', data-toggle='modal', data-target='#myLoginModal') 로그인
+          li
+            a.page-scroll(href='#', data-toggle='modal', data-target='#mySignUpModal') 회원가입
+          //- li
+          //-   a.page-scroll(href='/users/signup') 회원가입
+        else
+          li
+            a.page-scroll(href='/users/#{currentUser._id}') 유저정보
+          li
+            a.page-scroll(href='/signout') Signout
 
     script(src='/bower_components/agency/js/agency.js')
-    link(href='/bower_components/agency/css/agency.min.css', rel='stylesheet')
+    link(href='/bower_components/agency/css/agency.css', rel='stylesheet')

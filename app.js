@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var hosting = require('./routes/hosting');
 
 var app = express();
 
@@ -24,7 +25,7 @@ if (app.get('env') === 'development') {
 app.locals.moment = require('moment');
 
 // mongodb connect
-mongoose.connect('mongodb://nyh_host:4903@ds057476.mlab.com:57476/airnyh_test_db');
+mongoose.connect('mongodb://nyh:4903@ds111178.mlab.com:11178/airbnbproject');
 mongoose.connection.on('error', console.log);
 
 // uncomment after placing your favicon in /public
@@ -54,6 +55,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', index);
+app.use('/hosting', hosting);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

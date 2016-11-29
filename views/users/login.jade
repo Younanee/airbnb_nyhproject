@@ -7,18 +7,23 @@
           span(aria-hidden='true') ×
         h4#myModalLabel.modal-title 로그인
       .modal-body
-        form.form-horizontal(action='/login', method='POST')
-        .form-group
+        form(id='myloginform', action='/', method='POST')
+          .form-group
             label.col-sm-2.control-label(for='inputEmail') 이메일
             .col-sm-10
-            input#inputEmail.form-control(type='email', placeholder='Email')
-        .form-group
+            input(
+              type='email', id='email', name='email', class='form-control', 
+              placeholder='Email address', required, autofocus
+            )
+          .form-group
             label.col-sm-2.control-label(for='inputPassword') 비밀번호
             .col-sm-10
-            input#inputPassword.form-control(type='password', placeholder='Password')
-        div.form-actions
+            input(
+              type='password', id='password', name='password', class='form-control', 
+              placeholder='Password', required, autofocus
+            )
       .modal-footer
         button.btn.btn-default(type='button', data-dismiss='modal') 닫기
-        button.btn.btn-primary(type='submit') 로그인
+        button.btn.btn-primary(type='submit' form='myloginform') 로그인
         button.btn.btn-primary.pull-left(type='button' href='#') 비밀번호 찾기
-        button.btn.btn-primary.pull-left(href='#', data-toggle='modal', data-target='#mySignInModal') 회원가입
+        button.btn.btn-primary.pull-left(href='#', data-toggle='modal', data-target='#mySignUpModal') 회원가입

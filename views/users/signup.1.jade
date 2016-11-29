@@ -1,0 +1,32 @@
+extends ../layout
+
+block main
+  header.hosting-header
+    .container
+      .intro-text
+        .intro-lead-in Welcome!
+        .intro-heading 호스팅
+        .intro-heading 새로운 여행을 시작하세요
+        a.page-scroll.btn.btn-xl(href="#") more view
+
+  section#serch(style='margin: 0 80px')
+    .container
+      h1.custom-top-margin 회원가입
+      form(action='/users', method='POST')
+        .form-group
+          label(for='name') Name
+          .alert.alert-danger(role='alert')
+          input.form-control(type='text', id='name', name='name', placeholder='Your name')
+        .form-group
+          label(for='email') Email address
+          input.form-control(type='email', id='email', name='email', placeholder='Email')
+        .form-group
+          label(for='password') Password
+          input.form-control(type='password', id='password', name='password', placeholder='Password')
+        .form-group
+          label(for='password_confirmation') Password 확인
+          input.form-control(type='password', id='password_confirmation', name='password_confirmation', placeholder='Password')
+        div.form-actions
+          a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+          | 
+          button.btn.btn-primary(type='submit') 회원가입 
