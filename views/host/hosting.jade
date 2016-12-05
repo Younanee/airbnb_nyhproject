@@ -1,0 +1,57 @@
+extends ../layout
+
+block main
+  header.hosting-header
+    .container
+      .intro-text
+        .intro-lead-in Hello!
+        .intro-heading 호스트가 되어보세요!
+        a.page-scroll.btn.btn-xl(href="#posting") 호스팅 하기
+        //제목, 간단한 설명, city, address, cost, usingRule, facilities
+  section#posting
+    .container
+      h1 호스팅 하기
+      form(id='hostingForm', action='/host', method='POST', role='form', data-toggle='validator')
+        .form-group
+          label(for='title') 제목
+          input#title.form-control(name='title', type='text', aria-describedby='titleHelp', placeholder='title')
+          small#titleHelp.form-text.text-muted 숙소를 한줄로 소개할 멋진 제목을 써주세요.
+        .form-group
+          label(for='simpleComment') 간단한 설명
+          textarea#simpleComment.form-control(name='simpleComment', rows='3', aria-describedby='commentHelp')
+          small#commentHelp.form-text.text-muted 숙소를 간단하게 설명해주세요.
+        .form-group
+          label(for='city') 도시
+          input#city.form-control(name='city', type='text', aria-describedby='cityHelp', placeholder='city')
+          small#cityHelp.form-text.text-muted 숙소가 있는 도시를 써주세요.
+        .form-group
+          label(for='address') 주소
+          input#address.form-control(name='address', type='text', aria-describedby='addressHelp', placeholder='address')
+          small#addressHelp.form-text.text-muted 숙소의 주소를 정확히 써주세요.
+        .form-group
+          label(for='cost') 이용 요금
+          input#cost.form-control(name='cost', type='text', aria-describedby='costHelp', placeholder='cost')
+          small#costHelp.form-text.text-muted 숙소 이용 요금을 측정해주세요.
+        .form-group
+          label(for='usingRule') 이용 규칙
+          textarea#usingRule.form-control(name='usingRule', rows='3', aria-describedby='ruleHelp')
+          small#ruleHelp.form-text.text-muted 숙소 이용시 규칙을 작성해주세요.
+        .form-group
+          label(for='facilities') 편의 시설
+          textarea#facilities.form-control(name='facilities', rows='3', aria-describedby='facilities')
+          small#facilitiesHelp.form-text.text-muted 숙소의 편의 시설을 작성해주세요.
+        .form-group
+          label(for='picture') 숙소 사진
+          input#picture.form-control-file(name='picture', type='file', aria-describedby='pictureHelp')
+          small#pictureHelp.form-text.text-muted
+            | 숙소를 대표할 사진을 업로드 해주세요.
+        .form-group
+          button.btn.btn-primary(id='hostingbtn', type='submit') 호스팅 완료
+
+      script(src='/bower_components/agency/js/agency.js')
+      link(href='/bower_components/agency/css/agency.css', rel='stylesheet')
+      script(src='/javascripts/hosting.js')
+      script(type='text/javascript', src='/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.js')
+        
+      //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css', integrity='sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi', crossorigin='anonymous')
+      //- script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js', integrity='sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK', crossorigin='anonymous')

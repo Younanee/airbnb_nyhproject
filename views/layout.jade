@@ -15,22 +15,25 @@ html(lang='ko')
     script(src='/bower_components/lodash/lodash.js')
     script(src='/bower_components/moment/min/moment.min.js')
 
+    
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css', integrity='sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi', crossorigin='anonymous')
+    //script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js', integrity='sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK', crossorigin='anonymous')
+
+
+    script(src='/javascripts/index.js')
 
   body#page-top.index
     block top-nav
       include ./includes/topnav
       include ./users/login
       include ./users/signupp
+      //- if flashMessages
+      //-   each texts, type in flashMessages
+      //-     script.
+      //-       $('#msg-modal').modal('show')
     block main
-    .main-content
-      if flashMessages
-        each texts, type in flashMessages
-          .container
-            .alert(class='alert-#{type}')
-              each msg in texts
-                p= msg           
+    .main-content     
       block content
         
-    //include ./users/login
     block footer
       include ./includes/footer

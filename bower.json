@@ -22,6 +22,9 @@
     "lodash": "^4.17.2"
   },
   "devDependencies": {
-    "moment": "^2.16.0"
+    "moment": "^2.16.0",
+    "bootstrap-validator": "^0.11.5",
+    "bootstrapvalidator": "bootstrapValidator#^0.5.3",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.43"
   }
 }

@@ -1,10 +1,15 @@
 var express = require('express'),
-    User = require('../models/User');
+    User = require('../models/User'),
+    Post = require('../models/Post');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  Post.find({},function(err, posts){
+    res.render('index', {
+      posts: posts
+    });
+  }).limit(3);
 });
 
 router.post('/', function(req, res, next) {

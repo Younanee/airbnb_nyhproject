@@ -7,35 +7,58 @@ block main
         .intro-lead-in Welcome!
         .intro-heading AirNYH와함께
         .intro-heading 새로운 여행을 시작하세요
-        a.page-scroll.btn.btn-xl(href="#") more view
+        a.page-scroll.btn.btn-xl(href="#serch") 숙소 검색하기
 
   section#serch(style='margin: 0 80px')
+    .row#serch-box
+      form
+        .col-xs-6.col-md-4
+          h4.control-label.label-custom(for='city') city
+          input.serch-form.input-lg(name='city', id='city', type='text', placeholder='목적지, 도시명, 주소')
+
+        .col-xs-6.col-md-2
+          h5.control-label.label-custom(for='city') 체크인
+          input#datetimepicker6.form-control(type='text')      
+        .col-xs-6.col-md-2
+          h5.control-label.label-custom(for='city') 체크아웃
+          input#datetimepicker7.form-control(type='text')
+        .col-xs-6.col-md-4 .col-xs-6 .col-md-4
+
+
+          
     .row
       .col-lg-12.text-center
-        h2.section-heading Services
-        h3.section-subheading.text-muted Lorem ipsum dolor sit amet consectetur.
+        h2.section-heading 추천 숙소
+
     .row.text-center
-      .col-md-4
-        span.fa-stack.fa-4x
-          i.fa.fa-circle.fa-stack-2x.text-primary
-          i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
-        h4.service-heading E-Commerce
-        p.text-muted
-          | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.
-      .col-md-4
-        span.fa-stack.fa-4x
-          i.fa.fa-circle.fa-stack-2x.text-primary
-          i.fa.fa-laptop.fa-stack-1x.fa-inverse
-        h4.service-heading Responsive Design
-        p.text-muted
-          | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.
-      .col-md-4
-        span.fa-stack.fa-4x
-          i.fa.fa-circle.fa-stack-2x.text-primary
-          i.fa.fa-lock.fa-stack-1x.fa-inverse
-        h4.service-heading Web Security
-        p.text-muted
-          | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.
+      each post in posts
+        .col-md-4
+          .card
+            .card-block
+              //h4.card-title 지역이름
+              h6.card-subtitle.text-muted= post.city
+            img.img-responsive.img-rounded(src='/images/bg3.jpg', alt='Card image')
+            .card-block
+              p.card-text= post.cost
+               span 만원         
+              p.card-text= post.meta.favs
+              a.card-link(href='#') 상세보기
   
     script(src='/bower_components/agency/js/agency.js')
     link(href='/bower_components/agency/css/agency.css', rel='stylesheet')
+    link(href='/stylesheets/search-box.css', rel='stylesheet')
+    script(type='text/javascript', src='/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+    link(rel='stylesheet', href='/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')
+    script(type='text/javascript').
+      $(function () {
+        $('#datetimepicker6').datetimepicker();
+        $('#datetimepicker7').datetimepicker({
+          useCurrent: false //Important! See issue #1075
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+          $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+         $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+      });

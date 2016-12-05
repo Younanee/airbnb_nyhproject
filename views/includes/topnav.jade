@@ -10,27 +10,28 @@ nav#mainNav.navbar.navbar-custom.navbar-fixed-top
       ul.nav.navbar-nav.navbar-right
         li.hidden
           a(href='#page-top')
-        li
-          a.page-scroll(href='#serch') 숙소 검색
-        li
-          a.page-scroll(href='/hosting/hosting') 호스트
-        li
-          a.page-scroll(href='#team') 메시지
-        li
-          a.page-scroll(href='/users/userlist') 유저리스트
       ul.nav.navbar-nav.navbar-right
         if(!currentUser)
+          li
+            a.page-scroll(href='/#serch') 숙소 검색
           li
             a.page-scroll(href='#', data-toggle='modal', data-target='#myLoginModal') 로그인
           li
             a.page-scroll(href='#', data-toggle='modal', data-target='#mySignUpModal') 회원가입
-          //- li
-          //-   a.page-scroll(href='/users/signup') 회원가입
         else
+          li
+            a.page-scroll(href='/#serch') 숙소 검색
+          li
+            a.page-scroll(href='/host/') 호스트
+          li
+            a.page-scroll(href='#team') 메시지
+          li
+            a.page-scroll(href='/users/userlist') 유저리스트
           li
             a.page-scroll(href='/users/#{currentUser._id}') 유저정보
           li
             a.page-scroll(href='/signout') Signout
+
 
     script(src='/bower_components/agency/js/agency.js')
     link(href='/bower_components/agency/css/agency.css', rel='stylesheet')
