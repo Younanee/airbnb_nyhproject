@@ -12,17 +12,20 @@ block main
   section#serch(style='margin: 0 80px')
     .row#serch-box
       form
-        .col-xs-6.col-md-4
+        .col-xs-6.col-md-3
           h4.control-label.label-custom(for='city') city
           input.serch-form.input-lg(name='city', id='city', type='text', placeholder='목적지, 도시명, 주소')
 
-        .col-xs-6.col-md-2
-          h5.control-label.label-custom(for='city') 체크인
+        .col-xs-6.col-md-3
+          h5.control-label.label-custom(for='datetimepicker6') 체크인
           input#datetimepicker6.form-control(type='text')      
-        .col-xs-6.col-md-2
-          h5.control-label.label-custom(for='city') 체크아웃
+        .col-xs-6.col-md-3
+          h5.control-label.label-custom(for='datetimepicker7') 체크아웃
           input#datetimepicker7.form-control(type='text')
-        .col-xs-6.col-md-4 .col-xs-6 .col-md-4
+        .col-xs-6.col-md-2
+          h4.control-label.label-custom(for='person') 인원
+          input.serch-form.input-lg(name='person', id='person', type='text', placeholder='인원')
+        .col-xs-6.col-md-1
 
 
           
