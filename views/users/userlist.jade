@@ -1,6 +1,7 @@
 extends ../layout
 
 block content
+  .show-page
   .container
     h1.page-header 회원 목록
     
@@ -21,3 +22,6 @@ block content
               a.btn.btn-xs.btn-default(href='/users/#{user._id}/edit') 수정
               | 
               a.btn.btn-xs.btn-default(href='/users/#{user._id}?_method=DELETE') 삭제
+
+
+  link(href='/stylesheets/show.css', rel='stylesheet')

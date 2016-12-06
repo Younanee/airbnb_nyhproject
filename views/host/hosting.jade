@@ -30,7 +30,7 @@ block main
           small#addressHelp.form-text.text-muted 숙소의 주소를 정확히 써주세요.
         .form-group
           label(for='cost') 이용 요금
-          input#cost.form-control(name='cost', type='text', aria-describedby='costHelp', placeholder='cost')
+          input#cost.form-control(name='cost', type='number', aria-describedby='costHelp', placeholder='cost')
           small#costHelp.form-text.text-muted 숙소 이용 요금을 측정해주세요.
         .form-group
           label(for='usingRule') 이용 규칙
@@ -48,8 +48,8 @@ block main
         .form-group
           button.btn.btn-primary(id='hostingbtn', type='submit') 호스팅 완료
 
-      script(src='/bower_components/agency/js/agency.js')
-      link(href='/bower_components/agency/css/agency.css', rel='stylesheet')
+      //- script(src='/bower_components/agency/js/agency.js')
+      //- link(href='/bower_components/agency/css/agency.css', rel='stylesheet')
       script(src='/javascripts/hosting.js')
       script(type='text/javascript', src='/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.js')
         
