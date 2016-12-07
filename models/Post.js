@@ -14,6 +14,7 @@ var postSchema = new Schema({
     title:{type: String, require: true},
     simpleComment:{type: String},
     city:{type: String, require: true, trim: true},
+    postcode:{type: String, require: true},
     address: {type: String, require: true},
     cost: {type: Number, require: true, trim: true},
     facilities: {type: String},

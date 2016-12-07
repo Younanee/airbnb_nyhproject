@@ -44,7 +44,7 @@ block main
               h5.text-muted ₩
                 span.text-muted= post.cost
               p.card-text= post.meta.favs
-              a.card-link(href='/post/') 상세보기
+              a.card-link(href='/post/#{post.id}') 상세보기
   
     script(src='/bower_components/agency/js/agency.js')
     link(href='/bower_components/agency/css/agency.css', rel='stylesheet')

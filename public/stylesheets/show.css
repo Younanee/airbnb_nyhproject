@@ -13,10 +13,28 @@
     color: #fff;
 }
 
+
+.space-txt {
+    padding-right: 30px;
+}
+
+.icon-big {
+    font-size: 80px;
+}
+
+.border-bottom-custom {
+    border-bottom: 1px solid #DCDCDC;
+    /*background-color: lightgrey;*/
+}
+
+
 .backg {
     background-color: #fff;
 }
 
+.right-txt {
+    text-align: right;
+}
 .center-txt {
     text-align: center;
 }
@@ -44,19 +62,25 @@
 .line-hei {
     padding-top: 10px;
 }
+.line-hei-high {
+    padding-top: 20px;
+}
 
 
-@media (min-width: 800px) {
+@media (min-width: 900px) {
     .affix {
         position: fixed;
         /*width: auto;*/
+    }
+    .space-txt {
+        padding-right: 60px;
     }
 
 }
 
 
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .affix {
         position: static;
         /*width: auto;*/
@@ -66,5 +90,6 @@
         top: 70px;
         width: auto;
     }
+
 
 }

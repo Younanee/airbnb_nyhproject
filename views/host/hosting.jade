@@ -10,48 +10,118 @@ block main
         //제목, 간단한 설명, city, address, cost, usingRule, facilities
   section#posting
     .container
-      h1 호스팅 하기
-      form(id='hostingForm', action='/host', method='POST', role='form', data-toggle='validator')
-        .form-group
-          label(for='title') 제목
-          input#title.form-control(name='title', type='text', aria-describedby='titleHelp', placeholder='title')
-          small#titleHelp.form-text.text-muted 숙소를 한줄로 소개할 멋진 제목을 써주세요.
-        .form-group
-          label(for='simpleComment') 간단한 설명
-          textarea#simpleComment.form-control(name='simpleComment', rows='3', aria-describedby='commentHelp')
-          small#commentHelp.form-text.text-muted 숙소를 간단하게 설명해주세요.
-        .form-group
-          label(for='city') 도시
-          input#city.form-control(name='city', type='text', aria-describedby='cityHelp', placeholder='city')
-          small#cityHelp.form-text.text-muted 숙소가 있는 도시를 써주세요.
-        .form-group
-          label(for='address') 주소
-          input#address.form-control(name='address', type='text', aria-describedby='addressHelp', placeholder='address')
-          small#addressHelp.form-text.text-muted 숙소의 주소를 정확히 써주세요.
-        .form-group
-          label(for='cost') 이용 요금
-          input#cost.form-control(name='cost', type='number', aria-describedby='costHelp', placeholder='cost')
-          small#costHelp.form-text.text-muted 숙소 이용 요금을 측정해주세요.
-        .form-group
-          label(for='usingRule') 이용 규칙
-          textarea#usingRule.form-control(name='usingRule', rows='3', aria-describedby='ruleHelp')
-          small#ruleHelp.form-text.text-muted 숙소 이용시 규칙을 작성해주세요.
-        .form-group
-          label(for='facilities') 편의 시설
-          textarea#facilities.form-control(name='facilities', rows='3', aria-describedby='facilities')
-          small#facilitiesHelp.form-text.text-muted 숙소의 편의 시설을 작성해주세요.
-        .form-group
-          label(for='picture') 숙소 사진
-          input#picture.form-control-file(name='picture', type='file', aria-describedby='pictureHelp')
-          small#pictureHelp.form-text.text-muted
-            | 숙소를 대표할 사진을 업로드 해주세요.
-        .form-group
-          button.btn.btn-primary(id='hostingbtn', type='submit') 호스팅 완료
+      .row
+        h1 호스팅 하기
+        form(id='hostingForm', action='/host', method='POST', role='form', data-toggle='validator')
+          .form-group
+            label(for='title') 제목
+            input#title.form-control(name='title', type='text', aria-describedby='titleHelp', placeholder='title')
+            small#titleHelp.form-text.text-muted 숙소를 한줄로 소개할 멋진 제목을 써주세요.
+          .form-group
+            label(for='simpleComment') 간단한 설명
+            textarea#simpleComment.form-control(name='simpleComment', rows='3', aria-describedby='commentHelp')
+            small#commentHelp.form-text.text-muted 숙소를 간단하게 설명해주세요.
+          .form-group
+            label(for='city') 도시
+            input#city.form-control(name='city', type='text', aria-describedby='cityHelp', placeholder='city')
+            small#cityHelp.form-text.text-muted 숙소가 있는 도시를 써주세요.
+          .form-group
+            label(for='postcode') 주소
+            //- input#address.form-control(name='address', type='text', aria-describedby='addressHelp', placeholder='address')
+            //- small#addressHelp.form-text.text-muted 숙소의 주소를 정확히 써주세요.
+
+            input#postcode.form-control(name='postcode', type='text', placeholder='우편번호', onclick='sample3_execDaumPostcode()', aria-describedby='addressHelp')
+            small#addressHelp.form-text.text-muted 위 입력란 클릭 시 daum 주소 찾기가 실행됩니다.
+            #wrap(style='display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative')
+              img#btnFoldWrap(src='//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png', style='cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1', onclick='foldDaumPostcode()', alt='접기 버튼', aria-describedby='addressHelp2')
+            input#address.d_form.large.form-control(type='text', placeholder='주소', name='address')
+            small#addressHelp2.form-text.text-muted 우편번호 입력란 클릭 시 daum 주소 찾기가 실행됩니다.
+
+          .form-group
+            label(for='cost') 이용 요금
+            input#cost.form-control(name='cost', type='number', aria-describedby='costHelp', placeholder='cost')
+            small#costHelp.form-text.text-muted 숙소 이용 요금을 측정해주세요.
+          .form-group
+            label(for='usingRule') 이용 규칙
+            textarea#usingRule.form-control(name='usingRule', rows='3', aria-describedby='ruleHelp')
+            small#ruleHelp.form-text.text-muted 숙소 이용시 규칙을 작성해주세요.
+          .form-group
+            label(for='facilities') 편의 시설
+            textarea#facilities.form-control(name='facilities', rows='3', aria-describedby='facilities')
+            small#facilitiesHelp.form-text.text-muted 숙소의 편의 시설을 작성해주세요.
+          .form-group
+            label(for='picture') 숙소 사진
+            input#picture.form-control-file(name='picture', type='file', aria-describedby='pictureHelp')
+            small#pictureHelp.form-text.text-muted
+              | 숙소를 대표할 사진을 업로드 해주세요.
+          .form-group
+            button.btn.btn-primary(id='hostingbtn', type='submit') 호스팅 완료
 
       //- script(src='/bower_components/agency/js/agency.js')
       //- link(href='/bower_components/agency/css/agency.css', rel='stylesheet')
       script(src='/javascripts/hosting.js')
+      link(href='/stylesheets/hosting.css', rel='stylesheet')
       script(type='text/javascript', src='/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.js')
-        
+      
       //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css', integrity='sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi', crossorigin='anonymous')
       //- script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js', integrity='sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK', crossorigin='anonymous')
+
+      //다음 조사찾기 Script
+      script(src='http://dmaps.daum.net/map_js_init/postcode.v2.js')
+      script.
+        // 우편번호 찾기 찾기 화면을 넣을 element
+        var element_wrap = document.getElementById('wrap');
+
+        function foldDaumPostcode() {
+            // iframe을 넣은 element를 안보이게 한다.
+            element_wrap.style.display = 'none';
+        }
+
+        function sample3_execDaumPostcode() {
+            // 현재 scroll 위치를 저장해놓는다.
+            var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var fullAddr = data.address; // 최종 주소 변수
+                    var extraAddr = ''; // 조합형 주소 변수
+
+                    // 기본 주소가 도로명 타입일때 조합한다.
+                    if(data.addressType === 'R'){
+                        //법정동명이 있을 경우 추가한다.
+                        if(data.bname !== ''){
+                            extraAddr += data.bname;
+                        }
+                        // 건물명이 있을 경우 추가한다.
+                        if(data.buildingName !== ''){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                        fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
+                    document.getElementById('address').value = fullAddr;
+
+                    // iframe을 넣은 element를 안보이게 한다.
+                    // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+                    element_wrap.style.display = 'none';
+
+                    // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
+                    document.body.scrollTop = currentScroll;
+                },
+                // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
+                onresize : function(size) {
+                    element_wrap.style.height = size.height+'px';
+                },
+                width : '100%',
+                height : '100%'
+            }).embed(element_wrap);
+
+            // iframe을 넣은 element를 보이게 한다.
+            element_wrap.style.display = 'block';
+        }
