@@ -27,6 +27,7 @@ block main
             input.serch-form.input-lg(name='person', id='person', type='text', placeholder='인원')
           .col-sm-1
             button.btn.btn-primary.btn-lg(type='submit' form='search-form') 검색
+    
     .row(style='margin: 30px')
       .col-lg-12.text-center
         h2.section-heading 추천 숙소
@@ -40,8 +41,8 @@ block main
               h6.card-subtitle.text-muted= post.title
             img.img-responsive.img-rounded(src='/images/105.jpg', alt='Card image')
             .card-block
-              span.text-muted ₩
-              span.text-muted= post.cost
+              h5.text-muted ₩
+                span.text-muted= post.cost
               p.card-text= post.meta.favs
               a.card-link(href='/post/') 상세보기
   
@@ -68,30 +69,3 @@ block main
          $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
         });
       });
-
-
-
-
-
-
-
-
-
-
-
-    //- .container
-    //-   form.form-inline
-    //-     .form-group.col-xs-3
-    //-       h4.control-label.label-custom(for='city') city
-    //-       input.serch-form.input-lg(name='city', id='city', type='text', placeholder='목적지, 도시명, 주소')
-    //-     .form-group.col-xs-2
-    //-       h5.control-label.label-custom(for='datetimepicker6') 체크인
-    //-       input#datetimepicker6.form-control(type='text')      
-    //-     .form-group.col-xs-2
-    //-       h5.control-label.label-custom(for='datetimepicker7') 체크아웃
-    //-       input#datetimepicker7.form-control(type='text')
-    //-     .form-group
-    //-       h4.control-label.label-custom(for='person') 인원
-    //-       input.serch-form.input-lg(name='person', id='person', type='text', placeholder='인원')
-    //-     .form-group
-    //-       button.btn.btn-primary.btn-lg(href="#serch") 검색

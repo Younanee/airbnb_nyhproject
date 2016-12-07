@@ -13,6 +13,58 @@
     color: #fff;
 }
 
+.backg {
+    background-color: #fff;
+}
+
+.center-txt {
+    text-align: center;
+}
+.p-custom {
+    font-size: 15px;
+}
+
+.p-custom-sm {
+    font-size: 12px;
+
+}
+
+
+.custom-button {
+    width: 100%;
+}
+
+
+
 #show-side-menu {
     top: 70px;
+    width: 300px;
+}
+
+.line-hei {
+    padding-top: 10px;
+}
+
+
+@media (min-width: 800px) {
+    .affix {
+        position: fixed;
+        /*width: auto;*/
+    }
+
+}
+
+
+
+@media (max-width: 800px) {
+    .affix {
+        position: static;
+        /*width: auto;*/
+        /*display: none;*/
+    }
+    #show-side-menu {
+        top: 70px;
+        width: auto;
+    }
+
 }
