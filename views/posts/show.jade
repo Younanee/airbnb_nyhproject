@@ -2,18 +2,19 @@ extends ../layout
 
 block main
     .show-page
-    // ,  ,  ,  ,  , usingRule, facilities
     .container
+        //숙소 상세보기
         .col-xs-12.col-md-8
             .row.line-hei-high
                 h2= post.title
                 h4= post.city
                 p.text-muted= post.postcode
                 p.p-custom.text-muted= post.address
-                p.p-custom-sm.text-muted 호스트 이름
+                p.p-custom-sm.text-muted= post.hostName
+                p.p-custom-sm.text-muted= post.hostEmail
 
                 div.border-bottom-custom.line-hei-high
-            .row.line-hei-high.center-txt   
+            .row.line-hei-high.center-txt
                 i.fa.fa-bed.icon-big.space-txt(aria-hidden='true')
                 i.fa.fa-bath.icon-big.space-txt(aria-hidden='true')
                 i.fa.fa-users.icon-big.space-txt(aria-hidden='true')
@@ -32,9 +33,21 @@ block main
                 p.p-custom.line-hei= post.usingRule
                 div.border-bottom-custom.line-hei-high
             .row.line-hei-high
+                //이용자 후기
+                p.font-size-custom.line-hei 숙소 후기
+            //- .row.line-hei-high
+            //-     button.btn.btn-primary.custom-button(type='button', data-toggle='collapse', data-target='#demo') 후기쓰기
+            //-     #demo.collapse
+            //-         .panel
+            //-             .panel-heading 로그인한 유저이름
+            //-             .panel-body 후기내용
+            .row.line-hei-high
+                p.font-size-custom2 후기 글쓴이
+                p.p-custom.line-hei Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                div.border-bottom-custom.line-hei-high
+            .row.line-hei-high
 
-
-
+        //예약 사이드바
         .container.col-md-4.line-hei
             #show-side-menu
                 .container-fluid
@@ -70,8 +83,9 @@ block main
 
 
 
-
     link(href='/stylesheets/show.css', rel='stylesheet')
+
+
     script(type='text/javascript', src='/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
     link(rel='stylesheet', href='/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')
     //script(src='https://use.fontawesome.com/6695389da8.js')
@@ -95,6 +109,7 @@ block main
                 $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
             });
         });
+        
         $('#person-minus').click(function(){
             if(document.getElementById("person").value > 0){
                 document.getElementById("person").value--;

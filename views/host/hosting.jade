@@ -12,7 +12,7 @@ block main
     .container
       .row
         h1 호스팅 하기
-        form(id='hostingForm', action='/host', method='POST', role='form', data-toggle='validator')
+        form(id='hostingForm', action='/host/#{currentUser._id}', method='POST', role='form', data-toggle='validator')
           .form-group
             label(for='title') 제목
             input#title.form-control(name='title', type='text', aria-describedby='titleHelp', placeholder='title')

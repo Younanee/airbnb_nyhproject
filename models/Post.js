@@ -2,15 +2,27 @@ var mongoose = require('mongoose'),
     moment = require('moment'),
     Schema = mongoose.Schema;
 
-var commentsSchema = new Schema({
-    username: {type: Schema.Types.ObjectId, index: true},
+//후기에 다는 댓글
+var commentSchema = new Schema({
+    userId: {type: Schema.Types.ObjectId, index: true, required: true},
     content: {type: String, require: true},
     createdAt:{type: Date, default: Date.now}
 });
 
+//숙소 포스트에 다는 후기
+var postScriptSchema = new Schema({
+    userId: {type: Schema.Types.ObjectId, index: true, required: true},
+    title:{type: String, require: true},
+    content: {type: String, require: true},
+    comments: [commentSchema],
+    createdAt:{type: Date, default: Date.now}
+});
 
+//숙소 포스트
 var postSchema = new Schema({
-    hostid:{type: Schema.Types.ObjectId, index: true},
+    hostEmail:{type: String, require: true},
+    hostName:{type: String, require: true},
+    hostId:{type: Schema.Types.ObjectId, index: true, required: true},
     title:{type: String, require: true},
     simpleComment:{type: String},
     city:{type: String, require: true, trim: true},
@@ -20,9 +32,9 @@ var postSchema = new Schema({
     facilities: {type: String},
     usingRule: {type: String},
     createdAt:{type: Date, default: Date.now},
-    comments:[commentsSchema],
+    postScript:[postScriptSchema],
     meta      : {
-        votes : Number,
+        reservations : Number,
         favs  : Number
     }
 },{

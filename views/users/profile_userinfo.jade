@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  .profile-page
+  .container
+    .col-xs-12
+        ul.nav.nav-pills.line-hei-high.midTopNav
+            li
+                a(href='/users/#{user.id}') Profile Home
+            li
+                a(href='/users/#{user.id}/host') 호스트 메뉴
+            li
+                a(href='#') 내가 예약한 숙소
+            li
+                a(href='#') FAVORITE 관리
+            li.active
+                a(href='/users/#{user.id}/userinfo') 내 정보 관리
+    .col-xs-12
+        .col-xs-8
+            .row.line-hei-high.border-bottom-custom
+                ul.list-inline
+                    li.i.fa.fa-user-circle-o.icon-big.space-txt.line-hei(aria-hidden='true')
+                        h6 내 정보 관리
+                    li.left-txt
+                        h7 이름: #{user.name} 
+                        p 이메일: #{user.email}
+                        a.btn.btn-primary.txt-margin(href='/users/#{user._id}/edit') 수정
+                        a.btn.btn-primary.txt-margin(href='/users/#{user._id}?_method=DELETE') 삭제
+
+
+
+    link(href='/stylesheets/profile.css', rel='stylesheet')
+    script.
+        $(document).ready(function(){
+            $('ul.midTopNav li').click(function(){
+                var click_point = $('ul.midTopNav li').index(this);
+                $('ul.midTopNav li.active').removeClass('active');
+                $('ul.midTopNav li:eq('+click_point+')').addClass('active');
+            });
+            
+        });

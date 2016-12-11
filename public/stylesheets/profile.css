@@ -1,6 +1,6 @@
-.show-page {
+.profile-page {
 
-    background-image: url('/images/100.jpg');
+    background-image: url('/images/101.jpg');
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -9,9 +9,42 @@
     background-size: cover;
     -o-background-size: cover;
 
-    height: 300px;
+    height: 200px;
     color: #fff;
 }
+
+.myPanel {
+    border-radius : 0px;
+}
+.aInPanel {
+    color: black;
+}
+.aInPanel:hover,
+.aInPanel:focus {
+    background-color: #fff;
+}
+
+.left-nav > li.active > a {
+    background-color: #fff;
+    font-weight:bold;
+}
+.left-nav > li.active > a:hover,
+.left-nav > li.active > a:focus {
+    background-color: #fff;
+}
+
+
+
+.midTopNav > li.active > a {
+    background-color: #fed136;
+    font-weight:bold;
+}
+
+.midTopNav > li.active > a:hover,
+.midTopNav > li.active > a:focus {
+    background-color: #fec503;
+}
+
 .panel-yellow {
     background-color: #fff;
 }
@@ -33,6 +66,10 @@
 .backg {
     background-color: #fff;
 }
+.txt-margin {
+    margin-left: 5px;
+    margin-right: 5px;
+}
 
 .right-txt {
     text-align: right;
@@ -40,6 +77,9 @@
 .center-txt {
 
     text-align: center;
+}
+.left-txt {
+    text-align: left;
 }
 .font-size-custom {
      font-size: 30px;
@@ -74,32 +114,4 @@
 }
 .line-hei-high {
     padding-top: 20px;
-}
-
-
-@media (min-width: 900px) {
-    .affix {
-        position: fixed;
-        /*width: auto;*/
-    }
-    .space-txt {
-        padding-right: 60px;
-    }
-
-}
-
-
-
-@media (max-width: 900px) {
-    .affix {
-        position: static;
-        /*width: auto;*/
-        /*display: none;*/
-    }
-    #show-side-menu {
-        top: 70px;
-        width: auto;
-    }
-
-
 }

@@ -4,11 +4,27 @@ var express = require('express'),
 var router = express.Router();
 
 
+
+router.post('/list', function(req, res, next){
+    if(req.body.city){
+        Post.find({city: req.body.city},function(err, posts){
+            res.render('posts/post-list', {
+                posts: posts
+            });
+        });
+    } else {
+        Post.find({},function(err, posts){
+            res.render('posts/post-list', {
+                posts: posts
+            });
+        });
+    }
+
+    
+});
+
 router.get('/:id',function(req, res, next){
     Post.findById({_id: req.params.id}, function(err, post){
-        //
-
-        //
         if(err){
             return next(err);
         }
@@ -16,7 +32,7 @@ router.get('/:id',function(req, res, next){
             post: post
         });
     });
-    //res.render('posts/show');
+
 });
 
 
@@ -33,6 +49,17 @@ router.get('/:id', function(req, res, next){
         }
         res.render('posts/show', {post: post});
     });
+});
+
+//숙소 삭제하기
+router.delete('/:id', function(req, res, next){
+  Post.findOneAndRemove({_id: req.params.id}, function(err){
+    if(err){
+      return next(err);
+    }
+    req.flash('success', '숙소가 삭제되었습니다.');
+    res.redirect('back');
+  });
 });
 
 

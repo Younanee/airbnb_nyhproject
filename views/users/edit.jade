@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  .show-page
+  .container
+    h1.custom-top-margin 회원 정보 변경
+    form(id='editform', action='/users/#{user._id}?_method=PUT', method='POST', role='form', data-toggle='validator')
+        .form-group.has-feedback(id='name_group')
+            label.control-label(for='name') 이름
+            input.form-control(type='text', id='name', name='name', placeholder='변경할 이름', onblur='validate_name()', aria-describedby='nameHelp')
+            span.glyphicon.form-control-feedback(id='icon_in_name' aria-hidden='true')
+            small#nameHelp.form-text.text-muted 변경할 이름을 입력해주세요.
+        .form-group.has-feedback(id='next_password_group')
+            label.control-label(for='next_password') 변경할 비밀번호
+            input.form-control(type='next_password', id='next_password', name='next_password', placeholder='변경할 비밀번호', onblur='validate_password()', aria-describedby='next_passwordHelp')
+            span.glyphicon.form-control-feedback(id='icon_in_password' aria-hidden='true')
+            small#next_passwordHelp.form-text.text-muted 변경할 비밀번호를 입력해주세요.
+        .form-group
+            a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+            button.btn.btn-primary(id='editbtn', type='submit') 변경 하기
+
+
+    link(href='/bower_components/agency/css/agency-signup.css', rel='stylesheet')
+    link(href='/stylesheets/show.css', rel='stylesheet')
+    //script(src='/javascripts/edit.js')
+    //script(type='text/javascript', src='/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.js')

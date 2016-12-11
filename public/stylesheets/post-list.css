@@ -1,6 +1,6 @@
 .show-page {
-
     background-image: url('/images/100.jpg');
+    background-color: #fff;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -9,11 +9,12 @@
     background-size: cover;
     -o-background-size: cover;
 
-    height: 300px;
-    color: #fff;
+    height: 80px;
 }
-.panel-yellow {
-    background-color: #fff;
+
+.navbar-custom .nav li a {
+  /*color: #fed136;*/
+  outline: none;
 }
 
 .space-txt {
@@ -29,7 +30,6 @@
     /*background-color: lightgrey;*/
 }
 
-
 .backg {
     background-color: #fff;
 }
@@ -38,15 +38,7 @@
     text-align: right;
 }
 .center-txt {
-
     text-align: center;
-}
-.font-size-custom {
-     font-size: 30px;
-}
-
-.font-size-custom2 {
-     font-size: 20px;
 }
 .p-custom {
     font-size: 15px;
@@ -62,12 +54,15 @@
     width: 100%;
 }
 
-
-
-#show-side-menu {
-    top: 70px;
-    width: 300px;
+.scroll-remove {
+    overflow: hidden;
 }
+
+#left-list-area {
+    overflow: auto;
+}
+
+
 
 .line-hei {
     padding-top: 10px;
@@ -78,28 +73,25 @@
 
 
 @media (min-width: 900px) {
-    .affix {
-        position: fixed;
-        /*width: auto;*/
-    }
-    .space-txt {
-        padding-right: 60px;
+    .scroll-remove {
+        overflow: hidden;
     }
 
+    #left-list-area {
+        overflow: auto;
+        height: 530px;
+    }
 }
 
 
 
 @media (max-width: 900px) {
-    .affix {
-        position: static;
-        /*width: auto;*/
-        /*display: none;*/
-    }
-    #show-side-menu {
-        top: 70px;
-        width: auto;
+    .scroll-remove {
+        overflow: auto;
     }
 
-
+    #left-list-area {
+        overflow: auto;
+        height: 100%;
+    }
 }

@@ -1,0 +1,43 @@
+extends ../layout
+
+block main
+
+  body.scroll-remove
+    .show-page
+    #left-list-area.col-md-7
+        .row.clearfix
+        each post in posts
+            .col-md-6
+                .card
+                    .card-block
+                        h4.card-title= post.city
+                        h6.card-subtitle.text-muted= post.title
+                    img.img-responsive.img-rounded(src='/images/105.jpg', alt='Card image')
+                    .card-block
+                        h5.text-muted ₩
+                            span.text-muted= post.cost
+                        p.card-text= post.meta.favs
+                        a.card-link(href='/post/#{post.id}') 상세보기 
+            
+    .container.col-md-5.line-hei
+        #map(style='width:100%;height:480px;')
+        script(type='text/javascript', src='//apis.daum.net/maps/maps3.js?apikey=0a33175c7d23c0dca3b1ab21ad94194c')
+
+    link(href='/stylesheets/post-list.css', rel='stylesheet')
+
+    script.
+        $(document).ready(function(){
+            $('#left-list-area').animate({
+                //scrollTop: $('#post-list').offset().top
+            }, 700);
+
+        });
+
+        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new daum.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+            level: 3 //지도의 레벨(확대, 축소 정도)
+        };
+
+        var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+        

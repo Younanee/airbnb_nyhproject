@@ -1,0 +1,53 @@
+extends ../layout
+
+block content
+  .profile-page
+  .container
+    .col-xs-12
+        ul.nav.nav-pills.line-hei-high.midTopNav
+            li.active
+                a(href='/users/#{user.id}') Profile Home
+            li
+                a(href='/users/#{user.id}/host') 호스트 메뉴
+            li
+                a(href='#') 내가 예약한 숙소
+            li
+                a(href='#') FAVORITE 관리
+            li
+                a(href='/users/#{user.id}/userinfo') 내 정보 관리
+
+    .row.line-hei-high.border-bottom-custom.center-txt
+        ul.list-inline
+            li.i.fa.fa-h-square.icon-big.space-txt.line-hei(aria-hidden='true')
+                h6 호스트 메뉴 
+                p.p-custom.text-muted 호스트로서 예약/후기를 관리합니다.
+                div.border-bottom-custom.line-hei-high
+            li.i.fa.fa-registered.icon-big.space-txt.line-hei(aria-hidden='true')
+                h6 내가 예약한 숙소 
+                p.p-custom.text-muted 여행객으로 예약한 숙소를 관리합니다.
+                div.border-bottom-custom.line-hei-high
+        ul.list-inline
+            li.i.fa.fa-star.icon-big.space-txt.line-hei(aria-hidden='true')
+                h6 FAVORITE 관리 
+                p.p-custom.text-muted 여행객으로 Favorite한 숙소를 관리합니다.
+                div.border-bottom-custom.line-hei-high
+            li.i.fa.fa-user-circle-o.icon-big.space-txt.line-hei(aria-hidden='true')
+                h6 내 정보 관리
+                p.p-custom.text-muted 나의 개인정보를 수정/삭제를 관리합니다.
+                div.border-bottom-custom.line-hei-high
+
+            
+    div.border-bottom-custom.line-hei-high
+            div.border-bottom-custom.line-hei-high
+    
+
+    link(href='/stylesheets/profile.css', rel='stylesheet')
+    script.
+        $(document).ready(function(){
+            $('ul.midTopNav li').click(function(){
+                var click_point = $('ul.midTopNav li').index(this);
+                $('ul.midTopNav li.active').removeClass('active');
+                $('ul.midTopNav li:eq('+click_point+')').addClass('active');
+            });
+            
+        });

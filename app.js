@@ -4,16 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//
 var session = require('express-session');
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
 
+var passport = require('passport');
+var configAuth = require('./config/auth');
+
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var host = require('./routes/host');
 var post = require('./routes/post');
+var routeAuth = require('./routes/auth');
 
 var app = express();
 
@@ -55,10 +59,19 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+//passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+configAuth(passport);
+
 app.use('/', index);
 app.use('/host', host);
 app.use('/users', users);
 app.use('/post', post);
+
+routeAuth(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
