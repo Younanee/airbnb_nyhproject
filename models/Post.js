@@ -34,8 +34,8 @@ var postSchema = new Schema({
     createdAt:{type: Date, default: Date.now},
     postScript:[postScriptSchema],
     meta      : {
-        reservations : Number,
-        favs  : Number
+        views : {type: Number, default: 0},
+        favs  : {type: Number, default: 0}
     }
 },{
     toJSON: {

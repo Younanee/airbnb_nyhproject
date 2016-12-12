@@ -8,24 +8,51 @@ block content
             li
                 a(href='/users/#{user.id}') Profile Home
             li
-                a(href='/users/#{user.id}/host') 호스트 메뉴
+                a(href='/host/#{user.id}/host') 호스트 메뉴
             li
                 a(href='#') 내가 예약한 숙소
             li
                 a(href='#') FAVORITE 관리
             li.active
                 a(href='/users/#{user.id}/userinfo') 내 정보 관리
-    .col-xs-12
-        .col-xs-8
-            .row.line-hei-high.border-bottom-custom
-                ul.list-inline
-                    li.i.fa.fa-user-circle-o.icon-big.space-txt.line-hei(aria-hidden='true')
-                        h6 내 정보 관리
-                    li.left-txt
-                        h7 이름: #{user.name} 
-                        p 이메일: #{user.email}
-                        a.btn.btn-primary.txt-margin(href='/users/#{user._id}/edit') 수정
-                        a.btn.btn-primary.txt-margin(href='/users/#{user._id}?_method=DELETE') 삭제
+    .container-fluid
+        .col-xs-12.col-md-1.col.line-hei-high
+            ul.nav.nav-pills.nav-stacked.left-nav
+                li.i.fa.fa-user-circle-o.icon-big.space-txt.line-hei(aria-hidden='true')
+        .col-xs-12.col-md-7.col.line-hei-high
+            .container
+                .panel.panel-default.myPanel
+                    .panel-body
+                        ul.list-inline
+                            li
+                                h5=user.email
+                            li=user.name
+                        ul.list-inline
+                            li
+                                a.card-link(href='/users/#{user._id}/edit') 수정
+                            li
+                                a.card-link(href='/users/#{user._id}?_method=DELETE') 탈퇴
+
+
+
+
+
+
+
+
+
+
+
+        //- .col-xs-8
+        //-     .row.line-hei-high.border-bottom-custom
+        //-         ul.list-inline
+        //-             li.i.fa.fa-user-circle-o.icon-big.space-txt.line-hei(aria-hidden='true')
+        //-                 h6 내 정보 관리
+        //-             li.left-txt
+        //-                 h7 이름: #{user.name} 
+        //-                 p 이메일: #{user.email}
+        //-                 a.btn.btn-primary.txt-margin(href='/users/#{user._id}/edit') 수정
+        //-                 a.btn.btn-primary.txt-margin(href='/users/#{user._id}?_method=DELETE') 삭제
 
 
 

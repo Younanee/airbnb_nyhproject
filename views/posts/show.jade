@@ -54,14 +54,14 @@ block main
                     .col-md-12.rapping-color
                         label.control-label ₩
                             span= post.cost
-                    form(id='reserv-form', action='/', method='GET')
+                    form(id='reserv-form', action='/post/reservation/#{post._id}', method='POST')
                         .raw
                             .col-md-6.line-hei
                                 p.p-custom.control-label.label-custom.text-muted(for='datetimepicker6') 체크인
-                                input#datetimepicker6.form-control(type='text', name='check-in' ,placeholder='년/월/일') 
+                                input#datetimepicker6.form-control(type='text', name='checkIn' ,placeholder='년/월/일') 
                             .col-md-6.line-hei
                                 p.p-custom.control-label.label-custom.text-muted(for='datetimepicker7') 체크아웃
-                                input#datetimepicker7.form-control(type='text', name='check-out' ,placeholder='년/월/일')
+                                input#datetimepicker7.form-control(type='text', name='checkOut' ,placeholder='년/월/일')
                             .col-md-12.line-hei
                                     p.p-custom.control-label.label-custom.text-muted(for='email') 인원
                             .col-md-12
@@ -74,12 +74,12 @@ block main
                             .col-md-12.line-hei
                                 .input-group.line-hei
                                     button.btn.btn-primary.custom-button 예약 요청
-                            .col-md-12.line-hei
-                                .input-group.line-hei
-                                    button.btn.btn-primary.custom-button Favorite
-                            .col-md-12.line-hei.center-txt
-                                p.p-custom-sm xxx
-                                    span.text-muted 명의 게스트가 이 숙소를 좋아합니다.
+                        .col-md-12.line-hei
+                            .line-hei
+                                a.btn.btn-primary.custom-button(href='/post/#{post.id}/favorite') Favorite
+                        .col-md-12.line-hei.center-txt
+                            p.p-custom-sm xxx
+                                span.text-muted 명의 게스트가 이 숙소를 좋아합니다.
 
 
 

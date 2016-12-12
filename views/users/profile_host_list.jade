@@ -1,0 +1,72 @@
+extends ../layout
+
+block content
+  .profile-page
+  .container
+    .col-xs-12
+        ul.nav.nav-pills.line-hei-high.midTopNav
+            li
+                a(href='/users/#{user.id}') Profile Home
+            li.active
+                a(href='/host/#{user.id}/host') 호스트 메뉴
+            li
+                a(href='#') 내가 예약한 숙소
+            li
+                a(href='#') FAVORITE 관리
+            li
+                a(href='/users/#{user.id}/userinfo') 내 정보 관리
+    .container-fluid
+        .col-xs-12.col-md-2.col.line-hei-high
+            ul.nav.nav-pills.nav-stacked.left-nav
+                li
+                    a.text-muted(href='/host/#{user.id}/host') 예약 현황
+                li.active 
+                    a.text-muted(href='/host/#{user.id}/host/list') 숙소 목록
+        .col-xs-12.col-md-10.col.line-hei-high
+            
+            .container#post_list
+                h4 호스팅한 숙소 목록
+                each post in posts
+                    .panel.panel-default.myPanel
+                        .panel-body
+                            ul.list-inline
+                                li
+                                    h5=post.title
+                            ul.list-inline
+                                li.text-muted=post.address
+                            ul.list-inline
+                                li
+                                    a.card-link(href='/post/#{post.id}') 상세보기
+                                li
+                                    a.card-link(href='/post/#{post.id}?_method=DELETE') 삭제하기
+
+                                    
+
+
+
+    link(href='/stylesheets/profile.css', rel='stylesheet')
+    script.
+        $(document).ready(function(){
+            //- $('#post_list').hide();
+            
+            //- $('ul.midTopNav li').click(function(){
+            //-     var click_point = $('ul.midTopNav li').index(this);
+            //-     $('ul.midTopNav li.active').removeClass('active');
+            //-     $('ul.midTopNav li:eq('+click_point+')').addClass('active');
+            //- });
+            //- $('ul.left-nav li').click(function(){
+            //-     var click_point = $('ul.left-nav li').index(this);
+            //-     $('ul.left-nav li.active').removeClass('active');
+            //-     $('ul.left-nav li:eq('+click_point+')').addClass('active');
+            //-     if(click_point == 0){
+            //-         $('#post_list').hide();
+            //-         $('#revervation_list').show();
+            //-     } else {
+            //-         $('#revervation_list').hide();
+            //-         $('#post_list').show();
+            //-     }
+            });
+
+
+
+        });

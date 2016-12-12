@@ -71,33 +71,38 @@ router.get('/:id', function(req, res, next) {
   if(!req.session.user || (req.params.id!= req.user.id) ){
       req.flash('danger', '다시 로그인 해주세요.');
       res.redirect('/');
+  } else {
+    User.findById(req.params.id, function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      res.render('users/profile', {user: user});
+    });
   }
-  User.findById(req.params.id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    res.render('users/profile', {user: user});
-  });
 });
 
-//프로필 > 호스트 관련 관리 컨트롤
-router.get('/:id/host', function(req, res, next) {
-  if(!req.session.user || (req.params.id!= req.user.id) ){
-      req.flash('danger', '다시 로그인 해주세요.');
-      res.redirect('/');
-  }
-  User.findById(req.params.id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    Post.find({hostId: user._id},function(err, posts){
-      res.render('users/profile_host', {
-        user: user,
-        posts: posts
-    });
-    });
-  });
-});
+// //프로필 > 호스트 관련 관리 컨트롤
+// router.get('/:id/host', function(req, res, next) {
+//   if(!req.session.user || (req.params.id!= req.user.id) ){
+//       req.flash('danger', '다시 로그인 해주세요.');
+//       res.redirect('/');
+//   } else {
+//     User.findById(req.params.id, function(err, user) {
+//       if (err) {
+//         return next(err);
+//       }
+//       Post.find({hostId: user._id},function(err, posts){
+//         res.render('users/profile_host', {
+//           user: user,
+//           posts: posts
+//         });
+
+
+        
+//       });
+//     });
+//   }
+// });
 
 
 //프로필 > 유저 정보 컨트롤
@@ -105,13 +110,14 @@ router.get('/:id/userinfo', function(req, res, next) {
   if(!req.session.user || (req.params.id!= req.user.id) ){
       req.flash('danger', '다시 로그인 해주세요.');
       res.redirect('/');
+  } else {
+      User.findById(req.params.id, function(err, user) {
+        if (err) {
+          return next(err);
+        }
+        res.render('users/profile_userinfo', {user: user});
+      });
   }
-  User.findById(req.params.id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    res.render('users/profile_userinfo', {user: user});
-  });
 });
 
 //회원가입 컨트롤
@@ -128,21 +134,21 @@ router.post('/', function(req, res, next) {
     if (user) {
       req.flash('danger', '동일한 이메일 주소가 이미 존재합니다.');
       return res.redirect('back');
+    } else {
+      var newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+      });
+      newUser.password = newUser.generateHash(req.body.password);
+      newUser.save(function(err) {
+        if (err) {
+          next(err);
+        } else {
+          req.flash('success', '가입이 완료되었습니다. 로그인 해주세요.');
+          res.redirect('/');
+        }
+      });    
     }
-    var newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-    });
-    newUser.password = newUser.generateHash(req.body.password);
-
-    newUser.save(function(err) {
-      if (err) {
-        next(err);
-      } else {
-        req.flash('success', '가입이 완료되었습니다. 로그인 해주세요.');
-        res.redirect('/');
-      }
-    });
   });
 });
 

@@ -8,7 +8,7 @@ block content
             li
                 a(href='/users/#{user.id}') Profile Home
             li.active
-                a(href='/users/#{user.id}/host') 호스트 메뉴
+                a(href='/host/#{user.id}/host') 호스트 메뉴
             li
                 a(href='#') 내가 예약한 숙소
             li
@@ -19,30 +19,24 @@ block content
         .col-xs-12.col-md-2.col.line-hei-high
             ul.nav.nav-pills.nav-stacked.left-nav
                 li.active
-                    a.text-muted(href='#') 예약 현황
+                    a.text-muted(href='/host/#{user.id}/host') 예약 현황
                 li 
-                    a.text-muted(href='#') 숙소 목록
+                    a.text-muted(href='/host/#{user.id}/host/list') 숙소 목록
         .col-xs-12.col-md-10.col.line-hei-high
-            
-            .container#post_list
-                each post in posts
+            .container
+                h4 예약 요청 목록
+                each reserv_req in reserv_reqs
                     .panel.panel-default.myPanel
                         .panel-body
                             ul.list-inline
+                                li=reserv_req.postTitle
+                                li=reserv_req.postCity
+                            ul.list-inline
                                 li
-                                    h5=post.title
-                                li.text-muted=post.address
-                                li
-                                    a.card-link(href='/post/#{post.id}') 상세보기
-                                li
-                                    a.card-link(href='/post/#{post.id}?_method=DELETE') 삭제하기
-            //- each post in posts
-                .container#revervation_list
-                    .panel.panel-default.myPanel
-                        .panel-body
-                            | Basic panel example
-
-
+                                    h5=reserv_req.username
+                                li.text-muted=reserv_req.checkIn
+                                li.text-muted=reserv_req.checkOut
+                                li.text-muted=reserv_req.persons
 
 
     link(href='/stylesheets/profile.css', rel='stylesheet')

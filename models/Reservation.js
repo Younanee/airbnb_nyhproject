@@ -4,6 +4,8 @@ var mongoose = require('mongoose'),
 
 var revervationSchema = new Schema({
     postId:{type: Schema.Types.ObjectId, index: true, required: true},
+    postTitle:{type: String, require: true},
+    postCity:{type: String, require: true},
     hostId:{type: Schema.Types.ObjectId, index: true, required: true},
     userId: {type: Schema.Types.ObjectId, index: true, required: true},
     username:{type: String, require: true},
@@ -11,7 +13,7 @@ var revervationSchema = new Schema({
     checkIn:{type: String, require: true, trim: true},
     checkOut:{type: String, require: true, trim: true},
     persons:{type: String, require: true},
-    permission:{type: boolean, default: false}
+    permission:{type: Boolean, default: false}
 });
 
 
