@@ -7,11 +7,23 @@ block main
         .col-xs-12.col-md-8
             .row.line-hei-high
                 h2= post.title
-                h4= post.city
-                p.text-muted= post.postcode
+                
+                ul.list-inline
+                    li
+                        h4= post.city
+                    li
+                        i.fa.fa-thumbs-o-up(aria-hidden='true')  #{post.meta.favs}
+                    li
+                        i.fa.fa-book(aria-hidden='true')  #{post.meta.reservs}
+                    li
+                        i.fa.fa-eye(aria-hidden='true')  #{post.meta.views} 
                 p.p-custom.text-muted= post.address
-                p.p-custom-sm.text-muted= post.hostName
-                p.p-custom-sm.text-muted= post.hostEmail
+                ul.list-inline
+                    li
+                        i.fa.fa-user-o(aria-hidden='true')  #{post.hostName}
+                    li
+                        i.fa.fa-envelope-o(aria-hidden='true')  #{post.hostEmail}
+                
 
                 div.border-bottom-custom.line-hei-high
             .row.line-hei-high.center-txt
@@ -113,7 +125,7 @@ block main
                             .line-hei
                                 a.btn.btn-primary.custom-button(href='/post/#{post.id}/favorite') Favorite
                         .col-md-12.line-hei.center-txt
-                            p.p-custom-sm xxx
+                            p.p-custom-sm= post.meta.favs
                                 span.text-muted 명의 게스트가 이 숙소를 좋아합니다.
 
 
