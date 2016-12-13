@@ -71,13 +71,13 @@ block main
                                             i.fa.fa-comment-o(aria-hidden='true') 
                                         li #{postScript.comment}
                                 else
-                                    if (currentUser.name==post.hostName)
+                                    if (comment_permission)
                                         form(id='commentform', action='/post/#{postScript.id}/comment?_method=PUT', method='POST', role='form')
                                             .form-group
                                                 input#comment.form-control(name='comment', aria-describedby='commentHelp')
                                                 small#commentHelp.form-text.text-muted 숙소 후기의 코멘트를 달아주세요.
                                             .form-group
-                                                button.btn.btn-primary(id='commentformbtn', type='submit', form='commentform') 코멘트 완료
+                                                button.btn.btn-primary(id='commentformbtn', type='submit') 코멘트 완료
                         
                 div.border-bottom-custom.line-hei-high
             .row.line-hei-high

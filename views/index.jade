@@ -46,11 +46,11 @@ block main
             ul.list-inline
               li= post.city
               li
-                i.fa.fa-eye(aria-hidden='true')  #{post.meta.views}
+                i.fa.fa-thumbs-o-up(aria-hidden='true')  #{post.meta.favs}
               li
                 i.fa.fa-book(aria-hidden='true')  #{post.meta.reservs}
               li
-                i.fa.fa-thumbs-o-up(aria-hidden='true')  #{post.meta.favs}
+                i.fa.fa-eye(aria-hidden='true')  #{post.meta.views} 
               li
                 a.card-link(href='/post/#{post.id}') 상세보기
   

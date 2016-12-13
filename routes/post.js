@@ -10,14 +10,13 @@ var router = express.Router();
 //검색 결과
 router.post('/list', function(req, res, next){
     if(req.body.city){
-        Post.find({city: req.body.city},function(err, posts){
+        Post.find({city: req.body.city}).sort({'meta.favs':-1}).exec(function(err, posts){
             res.render('posts/post-list', {
                 posts: posts
             });
         });
     } else {
-        Post.find({},function(err, posts){
-            posts.sort({"meta.reservs": -1});
+        Post.find({}).sort({'meta.favs':-1}).exec(function(err, posts){
             res.render('posts/post-list', {
                 posts: posts
             });
@@ -38,13 +37,21 @@ router.get('/:id',function(req, res, next){
             }
         });
         PostScript.find({postId: req.params.id}, function(err, postScripts){
+            var comment_permission = false;
             if(err){
                 return next(err);
             }
+            if(req.user){
+                if(req.user.id == post.hostId){
+                    comment_permission = true;
+                }
+            }
             res.render('posts/show',{
+                comment_permission: comment_permission,
                 post: post,
                 postScripts: postScripts
             });
+
         });
 
     });
