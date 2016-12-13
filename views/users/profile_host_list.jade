@@ -6,13 +6,13 @@ block content
     .col-xs-12
         ul.nav.nav-pills.line-hei-high.midTopNav
             li
-                a(href='/users/#{user.id}') Profile Home
+                a(href='/users/#{user.id}') 프로필 홈
             li.active
                 a(href='/host/#{user.id}/host') 호스트 메뉴
             li
-                a(href='#') 내가 예약한 숙소
+                a(href='/users/#{user.id}/myreservation') 내가 예약한 숙소
             li
-                a(href='#') FAVORITE 관리
+                a(href='/users/#{user.id}/favorite') FAVORITE 관리
             li
                 a(href='/users/#{user.id}/userinfo') 내 정보 관리
     .container-fluid
@@ -25,7 +25,7 @@ block content
         .col-xs-12.col-md-10.col.line-hei-high
             
             .container#post_list
-                h4 호스팅한 숙소 목록
+                h4 내 호스팅 숙소 목록
                 each post in posts
                     .panel.panel-default.myPanel
                         .panel-body

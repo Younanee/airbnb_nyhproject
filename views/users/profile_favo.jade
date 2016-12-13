@@ -1,9 +1,0 @@
-    script.
-        $(document).ready(function(){
-            $('ul.midTopNav li').click(function(){
-                var click_point = $('ul.midTopNav li').index(this);
-                $('ul.midTopNav li.active').removeClass('active');
-                $('ul.midTopNav li:eq('+click_point+')').addClass('active');
-            });
-            
-        });

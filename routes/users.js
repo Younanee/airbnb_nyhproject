@@ -1,6 +1,8 @@
 var express = require('express'),
     User = require('../models/User'),
-    Post= require('../models/Post');
+    Post= require('../models/Post'),
+    Favorite= require('../models/Favorite'),
+    Reservation= require('../models/Reservation');
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -50,7 +52,7 @@ function validateForm(form, options) {
 // });
 
 
-
+//관리자 회원 리스트 관리
 router.get('/userlist', function(req, res, next) {
   User.find({},function(err, users){
     if(err){
@@ -59,12 +61,6 @@ router.get('/userlist', function(req, res, next) {
     res.render('users/userlist',{ users: users });
   });
 });
-
-
-// //회원가입 컨트롤 - test
-// router.get('/signup',function(req, res, next){
-//   res.render('users/signup');
-// });
 
 //프로필 메인창 컨트롤
 router.get('/:id', function(req, res, next) {
@@ -80,29 +76,86 @@ router.get('/:id', function(req, res, next) {
     });
   }
 });
+//프로필 > 좋아요 숙소 관리
+router.get('/:id/favorite', function(req, res, next){
+  if(!req.session.user || (req.params.id!= req.user.id) ){
+      req.flash('danger', '다시 로그인 해주세요.');
+      res.redirect('/');
+  } else {
+    User.findById(req.params.id, function(err, user){
+      if(err){
+        return next(err);
+      }
+      Favorite.find({userId: req.params.id}, function(err, favorites){
+        if(err){
+          return next(err);
+        }
+        res.render('users/profile_favor', {
+          user: user,
+          favorites: favorites
+        });
+      });
+    });
+  }
+});
 
-// //프로필 > 호스트 관련 관리 컨트롤
-// router.get('/:id/host', function(req, res, next) {
-//   if(!req.session.user || (req.params.id!= req.user.id) ){
-//       req.flash('danger', '다시 로그인 해주세요.');
-//       res.redirect('/');
-//   } else {
-//     User.findById(req.params.id, function(err, user) {
-//       if (err) {
-//         return next(err);
-//       }
-//       Post.find({hostId: user._id},function(err, posts){
-//         res.render('users/profile_host', {
-//           user: user,
-//           posts: posts
-//         });
+//프로필 > 좋아요 숙소 삭제
+router.delete('/:id/favorite', function(req, res, next){
+  Favorite.findOneAndRemove({_id: req.params.id}, function(err){
+    if(err){
+      return next(err);
+    }
+    req.flash('success', '좋아요가 취소되었습니다.');
+    res.redirect('back');
+  });
+});
 
-
-        
-//       });
-//     });
-//   }
-// });
+//프로필 > 내가 예약한 숙소 목록
+router.get('/:id/myreservation', function(req, res, next){
+  if(!req.session.user || (req.params.id!= req.user.id) ){
+      req.flash('danger', '다시 로그인 해주세요.');
+      res.redirect('/');
+  } else {
+    User.findById(req.params.id, function(err, user){
+      if(err){
+        return next(err);
+      }
+      Reservation.find({userId: req.params.id}, function(err, reservations){
+        if(err){
+          return next(err);
+        }
+        res.render('users/profile_reservation', {
+          user: user,
+          reservations: reservations
+        });
+      });
+    });
+  }
+});
+//여행자의 숙소 예약 취소 요청
+router.put('/:id/cancel_plz', function(req, res, next){
+  Reservation.findById(req.params.id, function(err, reservation){
+    if(err){
+      return next(err);
+    }
+    if(!reservation.cancel){
+      reservation.cancel = true;
+    } else {
+      reservation.cancel = false;
+    }
+    reservation.save(function(err){
+      if(err){
+        return next(err);
+      }
+      if(reservation.cancel){
+        req.flash('success', '호스트에게 예약 취소를 요청했습니다.');
+      } else {
+        req.flash('success', '예약 취소를 요청을 취소했습니다.');
+      }
+      res.redirect('back');
+    });
+  });
+});
 
 
 //프로필 > 유저 정보 컨트롤

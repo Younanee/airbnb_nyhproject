@@ -19,12 +19,13 @@ nav#mainNav.navbar.navbar-custom.navbar-fixed-top
           li
             a.page-scroll(href='#', data-toggle='modal', data-target='#mySignUpModal') 회원가입
         else
+          if (currentUser.email=='root@root')
+            li
+              a.page-scroll(href='/users/userlist') AirNYH회원관리
           li
             a.page-scroll(href='/#serch') 숙소 검색
           li
             a.page-scroll(href='/host') 호스팅
-          li
-            a.page-scroll(href='/users/userlist') 유저리스트
           li
             a.page-scroll(href='/users/#{currentUser._id}') 프로필
           li

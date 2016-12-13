@@ -1,3 +1,18 @@
+.custom_panel {
+    border-color :#fff;
+    border-radius : 0px;
+    outline: none;
+}
+.custom-font {
+    font-size: small;
+}
+
+.center-txt {
+
+    text-align: center;
+}
+
+
 #serch-box {
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;

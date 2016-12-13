@@ -32,19 +32,27 @@ block main
       .col-lg-12.text-center
         h2.section-heading 추천 숙소
 
-    .row.clearfix
+    .row
       each post in posts
         .col-md-4
-          .card
-            .card-block
-              h4.card-title= post.city
-              h6.card-subtitle.text-muted= post.title
-            img.img-responsive.img-rounded(src='/images/105.jpg', alt='Card image')
-            .card-block
-              h5.text-muted ₩
-                span.text-muted= post.cost
-              p.card-text= post.meta.favs
-              a.card-link(href='/post/#{post.id}') 상세보기
+          .panel.custom_panel
+            img.img-responsive(src='/images/105.jpg')
+
+            ul.list-inline
+              li
+                h7
+                  i.fa.fa-krw(aria-hidden='true')  #{post.cost}
+              li.custom-font= post.title
+            ul.list-inline
+              li= post.city
+              li
+                i.fa.fa-eye(aria-hidden='true')  #{post.meta.views}
+              li
+                i.fa.fa-book(aria-hidden='true')  #{post.meta.reservs}
+              li
+                i.fa.fa-thumbs-o-up(aria-hidden='true')  #{post.meta.favs}
+              li
+                a.card-link(href='/post/#{post.id}') 상세보기
   
     script(src='/bower_components/agency/js/agency.js')
     link(href='/bower_components/agency/css/agency.css', rel='stylesheet')

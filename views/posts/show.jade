@@ -41,9 +41,44 @@ block main
             //-         .panel
             //-             .panel-heading 로그인한 유저이름
             //-             .panel-body 후기내용
+            if (currentUser)
+                .row.line-hei-high
+                    button.btn.btn-primary.custom-button(type='button', data-toggle='collapse', data-target='#myPostScriptForm') 후기쓰기
+                    #myPostScriptForm.collapse
+                        form(id='postScriptform', action='/post/#{post.id}/postscript', method='POST', role='form')
+                            .form-group
+                                textarea#content.form-control(name='content', rows='3', aria-describedby='contentHelp')
+                                small#contentHelp.form-text.text-muted 숙소 이용 후기를 작성해주세요.
+                            .form-group
+                                button.btn.btn-primary(id='contentbtn', type='submit', form='postScriptform') 후기 작성 완료
             .row.line-hei-high
-                p.font-size-custom2 후기 글쓴이
-                p.p-custom.line-hei Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                .container
+                    each postScript in postScripts
+                        .panel.panel-default.myPanel
+                            .panel-body
+                                ul.list-inline
+                                    li
+                                        h5 
+                                            i.fa.fa-user-circle(aria-hidden='true') #{postScript.username}
+                                    li.text-muted #{moment(postScript.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+                    
+                                ul.list-inline
+                                    li #{postScript.content}
+                                
+                                if (postScript.comment)
+                                    ul.list-inline
+                                        li Host Reply
+                                            i.fa.fa-comment-o(aria-hidden='true') 
+                                        li #{postScript.comment}
+                                else
+                                    if (currentUser.name==post.hostName)
+                                        form(id='commentform', action='/post/#{postScript.id}/comment?_method=PUT', method='POST', role='form')
+                                            .form-group
+                                                input#comment.form-control(name='comment', aria-describedby='commentHelp')
+                                                small#commentHelp.form-text.text-muted 숙소 후기의 코멘트를 달아주세요.
+                                            .form-group
+                                                button.btn.btn-primary(id='commentformbtn', type='submit', form='commentform') 코멘트 완료
+                        
                 div.border-bottom-custom.line-hei-high
             .row.line-hei-high
 
@@ -85,7 +120,7 @@ block main
 
     link(href='/stylesheets/show.css', rel='stylesheet')
 
-
+    
     script(type='text/javascript', src='/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
     link(rel='stylesheet', href='/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')
     //script(src='https://use.fontawesome.com/6695389da8.js')

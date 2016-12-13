@@ -6,13 +6,13 @@ block content
     .col-xs-12
         ul.nav.nav-pills.line-hei-high.midTopNav
             li
-                a(href='/users/#{user.id}') Profile Home
+                a(href='/users/#{user.id}') 프로필 홈
             li.active
                 a(href='/host/#{user.id}/host') 호스트 메뉴
             li
-                a(href='#') 내가 예약한 숙소
+                a(href='/users/#{user.id}/myreservation') 내가 예약한 숙소
             li
-                a(href='#') FAVORITE 관리
+                a(href='/users/#{user.id}/favorite') FAVORITE 관리
             li
                 a(href='/users/#{user.id}/userinfo') 내 정보 관리
     .container-fluid
@@ -29,14 +29,40 @@ block content
                     .panel.panel-default.myPanel
                         .panel-body
                             ul.list-inline
-                                li=reserv_req.postTitle
-                                li=reserv_req.postCity
-                            ul.list-inline
                                 li
-                                    h5=reserv_req.username
-                                li.text-muted=reserv_req.checkIn
-                                li.text-muted=reserv_req.checkOut
-                                li.text-muted=reserv_req.persons
+                                    h5
+                                        i.fa.fa-user-circle(aria-hidden='true')  #{reserv_req.username}
+                                li.text-muted 체크인: #{reserv_req.checkIn}
+                                li.text-muted 체크아웃: #{reserv_req.checkOut}
+                                li 숙박인원: #{reserv_req.persons}명
+                                        //span.glyphicon.glyphicon-home(aria-hidden='true')
+                            ul.list-inline
+                                li 
+                                   span.glyphicon.glyphicon-home(aria-hidden='true')
+                                li=reserv_req.postTitle
+                                        
+                                li.text-muted=reserv_req.postCity
+
+                            ul.list-inline
+                                if (!reserv_req.permission)
+                                    if (reserv_req.req_state)
+                                        if (!reserv_req.cancel)
+                                            li
+                                                a.card-link(href='/host/#{reserv_req.id}/permission_ok?_method=PUT') 예약승인
+                                            li
+                                                a.card-link(href='/host/#{reserv_req.id}/permission_no?_method=PUT') 예약거부
+                                        else
+                                            li 여행자가 예약 요청을 취소했습니다.
+                                            li
+                                                a.card-link(href='/host/#{reserv_req.id}/reservation_delete?_method=DELETE') 취소요청승인
+                                    else
+                                        li 예약요청을 거부했습니다.
+                                        li 여행자의 요청 삭제 대기 중...
+
+                                else if (reserv_req.permission)
+                                    li 예약을 승인했습니다.
+                                    li
+                                        a.card-link(href='/host/#{reserv_req.id}/reservation_delete?_method=DELETE') 목록 삭제
 
 
     link(href='/stylesheets/profile.css', rel='stylesheet')

@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+  .profile-page
+  .container
+    .col-xs-12
+        ul.nav.nav-pills.line-hei-high.midTopNav
+            li
+                a(href='/users/#{user.id}') 프로필 홈
+            li
+                a(href='/host/#{user.id}/host') 호스트 메뉴
+            li
+                a(href='/users/#{user.id}/myreservation') 내가 예약한 숙소
+            li.active
+                a(href='/users/#{user.id}/favorite') FAVORITE 관리
+            li
+                a(href='/users/#{user.id}/userinfo') 내 정보 관리
+    .container-fluid
+        .col-xs-12.col-md-2.col.line-hei-high
+            ul.nav.nav-pills.nav-stacked.left-nav
+                li.i.fa.fa-star.icon-big.space-txt.line-hei(aria-hidden='true')
+        .col-xs-12.col-md-10.col.line-hei-high
+            .container
+                h4 나의 Favorite 숙소 목록
+                each favorite in favorites
+                    .panel.panel-default.myPanel
+                        .panel-body
+                            ul.list-inline
+                                li
+                                    h5=favorite.postTitle
+                                li.text-muted=favorite.postCity
+                                li
+                                    a.card-link(href='/post/#{favorite.postId}') 상세보기
+                                li
+                                    a.card-link(href='/users/#{favorite._id}/favorite?_method=DELETE') 삭제
+
+
+    link(href='/stylesheets/profile.css', rel='stylesheet')

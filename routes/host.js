@@ -8,6 +8,49 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('host/hosting');
 });
+//호스트의 숙소 예약 요청 승인
+router.put('/:id/permission_ok', function(req, res, next){
+  Reservation.findById(req.params.id, function(err, reservation){
+    if(err){
+      return next(err);
+    }
+    reservation.permission = true;
+    reservation.save(function(err){
+      if(err){
+        return next(err);
+      }
+      req.flash('success', '예약 요청을 승인했습니다.');
+      res.redirect('back');
+    });
+  });
+});
+//호스트의 숙소 예약 요청 거부
+router.put('/:id/permission_no', function(req, res, next){
+  Reservation.findById(req.params.id, function(err, reservation){
+    if(err){
+      return next(err);
+    }
+    reservation.req_state = false;
+    reservation.save(function(err){
+      if(err){
+        return next(err);
+      }
+      req.flash('success', '예약 요청을 거부했습니다.');
+      res.redirect('back');
+    });
+  });
+});
+//예약 요청을 DB에서 제거합니다.
+router.delete('/:id/reservation_delete', function(req, res, next){
+  Reservation.findOneAndRemove({_id: req.params.id}, function(err){
+    if(err){
+      return next(err);
+    }
+    req.flash('success', '목록에서 제거되었습니다.');
+    res.redirect('back');
+  });
+});
+
 
 
 //프로필 > 호스트 > 숙소 예약 요청 관리

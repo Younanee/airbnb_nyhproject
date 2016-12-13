@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  .profile-page
+  .container
+    .col-xs-12
+        ul.nav.nav-pills.line-hei-high.midTopNav
+            li
+                a(href='/users/#{user.id}') 프로필 홈
+            li
+                a(href='/host/#{user.id}/host') 호스트 메뉴
+            li.active
+                a(href='/users/#{user.id}/myreservation') 내가 예약한 숙소
+            li
+                a(href='/users/#{user.id}/favorite') FAVORITE 관리
+            li
+                a(href='/users/#{user.id}/userinfo') 내 정보 관리
+    .container-fluid
+        .col-xs-12.col-md-2.col.line-hei-high
+            ul.nav.nav-pills.nav-stacked.left-nav
+                li.i.fa.fa-star.icon-big.space-txt.line-hei(aria-hidden='true')
+        .col-xs-12.col-md-10.col.line-hei-high
+            .container
+                h4 나의 예약 숙소 목록
+                each reservation in reservations
+                    .panel.panel-default.myPanel
+                        .panel-body
+                            ul.list-inline
+                                li
+                                    h5=reservation.postTitle
+                                li.text-muted=reservation.postCity
+                                li
+                                    a.card-link(href='/post/#{reservation.postId}') 상세보기
+                            ul.list-inline
+                                li=reservation.checkIn
+                                li=reservation.checkOut
+                                li=reservation.persons
+                            ul.list-inline
+                                if (!reservation.req_state)
+                                    li 호스트가 예약 요청을 거부했습니다.
+                                    li
+                                        a.card-link(href='/host/#{reservation.id}/reservation_delete?_method=DELETE') 삭제
+                                else if (reservation.permission)
+                                    li 호스트가 예약 요청을 승인했습니다.
+                                else
+                                    if (!reservation.cancel)
+                                        li 호스트의 예약취소요청을 대기하고 있습니다.
+                                        li
+                                            a.card-link(href='/users/#{reservation.id}/cancel_plz?_method=PUT') 예약취소요청
+                                    else
+                                        li 호스트의 예약 취소 요청 대기 중...
+                                        li
+                                            a.card-link(href='/users/#{reservation.id}/cancel_plz?_method=PUT') 요청취소
+
+    link(href='/stylesheets/profile.css', rel='stylesheet')

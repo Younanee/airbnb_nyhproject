@@ -35,6 +35,7 @@ var postSchema = new Schema({
     postScript:[postScriptSchema],
     meta      : {
         views : {type: Number, default: 0},
+        reservs : {type: Number, default: 0},
         favs  : {type: Number, default: 0}
     }
 },{

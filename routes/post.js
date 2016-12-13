@@ -2,11 +2,12 @@ var express = require('express'),
     User = require('../models/User'),
     Post = require('../models/Post'),
     Reservation = require('../models/Reservation'),
-    Favorite = require('../models/Favorite');
+    Favorite = require('../models/Favorite'),
+    PostScript = require('../models/PostScript');
 var router = express.Router();
 
 
-
+//검색 결과
 router.post('/list', function(req, res, next){
     if(req.body.city){
         Post.find({city: req.body.city},function(err, posts){
@@ -16,6 +17,7 @@ router.post('/list', function(req, res, next){
         });
     } else {
         Post.find({},function(err, posts){
+            posts.sort({"meta.reservs": -1});
             res.render('posts/post-list', {
                 posts: posts
             });
@@ -29,28 +31,74 @@ router.get('/:id',function(req, res, next){
         if(err){
             return next(err);
         }
-        console.log('상세보기 접근중');
-        res.render('posts/show',{
-            post: post
+        post.meta.views++;
+        post.save(function(err){
+            if(err){
+                return next(err);
+            }
         });
+        PostScript.find({postId: req.params.id}, function(err, postScripts){
+            if(err){
+                return next(err);
+            }
+            res.render('posts/show',{
+                post: post,
+                postScripts: postScripts
+            });
+        });
+
     });
-
 });
-
-// router.get('/:id', function(req, res, next){
-//     Post.findById({_id: req.params.id}, function(err, post){
-//         post.read++;//페이지를 클릭해서 해당 게시물이 뜰때 마다 db에 read를 1씩 증가시킴.
-//         post.save(function(err){
-//             if(err){
-//                 return next(err);
-//             }
-//         });
-//         if(err){
-//             return next(err);
-//         }
-//         res.render('posts/show', {post: post});
-//     });
-// });
+//호스트의 코멘트 쓰기
+router.put('/:id/comment', function(req, res, next){
+    console.log('코멘트 컨트롤 접근');
+    if(!req.body.comment){
+        req.flash('danger', '코멘트 내용이 비어있습니다.');
+        res.redirect('back');
+    } else {
+        PostScript.findById(req.params.id, function(err, postScript){
+            if(err){
+                return next(err);
+            }
+            postScript.comment = req.body.comment;
+            postScript.save(function(err){
+                req.flash('success', '후기에 대한 코멘트를 달았습니다.');
+                res.redirect('back');
+            });
+        });
+    }
+});
+//후기 쓰기
+router.post('/:id/postscript',function(req, res, next){
+    if(!req.user){
+        req.flash('danger', '로그인이 필요합니다.');
+        res.redirect('back');
+    } else if(!req.body.content){
+        req.flash('danger', '후기 내용이 비어있습니다.');
+        res.redirect('back');
+    } else {
+        Post.findById({_id: req.params.id}, function(err, post){
+            if(err){
+                return next(err);
+            }
+            var postScript = new PostScript({
+                    postId: post.id,
+                    hostId: post.hostId,
+                    username: req.user.name,
+                    userId: req.user.id,
+                    content: req.body.content
+            });
+            postScript.save(function(err){
+                if(err){
+                    return next(err);
+                }
+                req.flash('success', '후기작성이 완료되었습니다.');
+                res.redirect('back');
+            });
+            
+        });
+    }
+});
 
 //숙소 삭제하기
 router.delete('/:id', function(req, res, next){
@@ -63,6 +111,7 @@ router.delete('/:id', function(req, res, next){
   });
 });
 
+//숙소 예약하기
 router.post('/reservation/:id', function(req, res, next){
     if(!req.user){
         req.flash('danger', '로그인이 필요합니다.');
@@ -82,6 +131,12 @@ router.post('/reservation/:id', function(req, res, next){
             if(err){
                 return next(err);
             }
+            post.meta.reservs++;
+            post.save(function(err){
+                if(err){
+                    return next(err);
+                }
+            });
             var reservation = new Reservation({
                 postCity: post.city,
                 postTitle: post.title,
@@ -109,13 +164,15 @@ router.post('/reservation/:id', function(req, res, next){
 
 //좋아요 처리
 router.get('/:id/favorite', function(req, res, next){
-    // console.log('find 전 req.user.아이디 은' + req.user.id);
-    // console.log('좋아요 접근중');
+
     if(!req.user){
         req.flash('danger', '로그인이 필요합니다.');
         res.redirect('back');
     } else {
         Post.findById({_id: req.params.id}, function(err, post){
+            if(err){
+                return next(err);
+            }
             post.meta.favs++;
             post.save(function(err){
                 if(err){
@@ -124,7 +181,10 @@ router.get('/:id/favorite', function(req, res, next){
             });
             var favorite = new Favorite({
                 postId: req.params.id,
-                userId: req.user.id
+                userId: req.user.id,
+                postTitle: post.title,
+                postAddress: post.address,
+                postCity: post.city
             });
             favorite.save(function(err){
                 if(err){
