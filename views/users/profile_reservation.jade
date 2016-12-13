@@ -44,7 +44,7 @@ block content
                                     li 호스트가 예약 요청을 승인했습니다.
                                 else
                                     if (!reservation.cancel)
-                                        li 호스트의 예약취소요청을 대기하고 있습니다.
+                                        li 호스트의 예약 승인을 기다리고 있습니다.
                                         li
                                             a.card-link(href='/users/#{reservation.id}/cancel_plz?_method=PUT') 예약취소요청
                                     else
